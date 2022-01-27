@@ -4,6 +4,7 @@ import edukata.models.User;
 import edukata.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,23 +20,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView allUsers() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index");
-//        List<User> userList = userService.getUsers();
-//        System.out.println(userList);
-//        modelAndView.addObject("users", userList);
-        return modelAndView;
+    @GetMapping("/")
+    public String allUsers(ModelMap map) {
+        List<User> userList = userService.getUsers();
+        map.addAttribute("users", userList);
+        return "index";
     }
-
-//    @GetMapping(value = "/")
-//    public String printWelcome(ModelMap model) {
-//        List<User> userList = userService.getUsers();
-//        model.addAttribute("users", userList);
-//        System.out.println("userList " + userList);
-//        return "index";
-//    }
 
     @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
     public ModelAndView editPage(@PathVariable("id") int id) {

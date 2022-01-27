@@ -55,6 +55,14 @@ public class HibernateConfig implements WebMvcConfigurer {
         return templateEngine;
     }
 
+    @Bean
+    public ThymeleafViewResolver viewResolver() {
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine(templateEngine());
+//        viewResolver.setOrder(1);
+        return viewResolver;
+    }
+
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
