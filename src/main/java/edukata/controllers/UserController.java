@@ -31,8 +31,9 @@ public class UserController {
     public ModelAndView editPage(@PathVariable("id") int id) {
         User user = userService.getUser((long) id);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("editPage");
+        modelAndView.setViewName("edit");
         modelAndView.addObject("user", user);
+        modelAndView.addObject("title", "edit page");
         return modelAndView;
     }
 
@@ -47,7 +48,9 @@ public class UserController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addPage() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("editPage");
+        modelAndView.addObject("title", "add new user page");
+        modelAndView.addObject("user", new User());
+        modelAndView.setViewName("create");
         return modelAndView;
     }
 
@@ -59,7 +62,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteUser(@PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/");
